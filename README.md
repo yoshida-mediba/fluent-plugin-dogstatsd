@@ -80,6 +80,28 @@ Supported types are `increment`, `decrement`, `count`, `gauge`, `histogram`, `ti
 </match>
 ```
 
+### Event
+
+```apache
+<source>
+  type tail
+  path /var/log/nginx/error.log
+  pos_file /var/log/td-agent/error.log.pos
+  format multiline
+  format_firstline /^\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2} \[\w+\] (?<pid>\d+).(?<tid>\d+): /
+  format1 /^(?<time>\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2}) \[(?<log_level>\w+)\] (?<pid>\d+).(?<tid>\d+): (?<message>.*)/
+  multiline_flush_interval 3s
+  tag datadog.nginx.errorlog
+</source>
+
+<match datadog.nginx.errorlog>
+  type dogstatsd
+  metric_type event
+  use_tag_as_title true
+  text_key message
+</match>
+```
+
 ### MySQL threads
 
 ```apache

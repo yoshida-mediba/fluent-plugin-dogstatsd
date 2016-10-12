@@ -6,10 +6,12 @@ module Fluent
     config_param :port, :integer, :default => nil
     config_param :use_tag_as_key, :bool, :default => false
     config_param :use_tag_as_key_if_missing, :bool, :default => false
+    config_param :use_tag_as_title, :bool, :default => false
     config_param :flat_tags, :bool, :default => false
     config_param :flat_tag, :bool, :default => false # obsolete
     config_param :metric_type, :string, :default => nil
     config_param :value_key, :string, :default => nil
+    config_param :text_key, :string, :default => nil
     config_param :sample_rate, :float, :default => nil
 
     unless method_defined?(:log)
@@ -58,8 +60,12 @@ module Fluent
           value = record.delete(@value_key || 'value')
 
           options = {}
-          title = record.delete('title')
-          text  = record.delete('text')
+          title = if @use_tag_as_title
+                    tag
+                  else
+                    record.delete('title')
+                  end
+          text  = record.delete(@text_key || 'text')
           type  = @metric_type || record.delete('type')
           sample_rate = @sample_rate || record.delete('sample_rate')
 
