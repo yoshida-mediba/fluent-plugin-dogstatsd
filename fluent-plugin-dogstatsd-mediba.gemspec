@@ -4,12 +4,12 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'fluent/plugin/dogstatsd/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "fluent-plugin-dogstatsd"
+  spec.name          = "fluent-plugin-dogstatsd-mediba"
   spec.version       = Fluent::Plugin::Dogstatsd::VERSION
-  spec.authors       = ["Ryota Arai"]
-  spec.email         = ["ryota.arai@gmail.com"]
+  spec.authors       = ["Hiroki Yoshida"]
+  spec.email         = ["h-yoshida@mediba.jp"]
   spec.summary       = %q{Fluent plugin for Dogstatsd, that is statsd server for Datadog.}
-  spec.homepage      = "https://github.com/ryotarai/fluent-plugin-dogstatsd"
+  spec.homepage      = "https://github.com/yoshida-mediba/fluent-plugin-dogstatsd"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
