@@ -97,7 +97,6 @@ Supported types are `increment`, `decrement`, `count`, `gauge`, `histogram`, `ti
 <match datadog.nginx.errorlog>
   type dogstatsd
   metric_type event
-  use_tag_as_title true
   text_key message
 </match>
 ```
