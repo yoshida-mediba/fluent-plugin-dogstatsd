@@ -94,7 +94,12 @@ module Fluent
           when 'set'
             s.set(key, value, options)
           when 'event'
-            options[:alert_type] = record['alert_type']
+            alert_type = ['error', 'warning', 'info', 'success']
+            options[:alert_type] = if alert_type.include?(record['alert_type'].downcase)
+                                     record['alert_type'].downcase
+                                   else
+                                     'info'
+                                   end
             s.event(key, text, options)
           when nil
             log.warn "type is not provided (You can provide type via `metric_type` in config or `type` field in a record."
