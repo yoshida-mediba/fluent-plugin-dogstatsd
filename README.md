@@ -89,7 +89,7 @@ Supported types are `increment`, `decrement`, `count`, `gauge`, `histogram`, `ti
   pos_file /var/log/td-agent/error.log.pos
   format multiline
   format_firstline /^\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2} \[\w+\] (?<pid>\d+).(?<tid>\d+): /
-  format1 /^(?<time>\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2}) \[(?<log_level>\w+)\] (?<pid>\d+).(?<tid>\d+): (?<message>.*)/
+  format1 /^(?<time>\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2}) \[(?<alert_type>\w+)\] (?<pid>\d+).(?<tid>\d+): (?<message>.*)/
   multiline_flush_interval 3s
   tag datadog.nginx.errorlog
 </source>
