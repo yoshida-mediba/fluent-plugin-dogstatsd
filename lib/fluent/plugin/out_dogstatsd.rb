@@ -95,7 +95,7 @@ module Fluent
             s.set(key, value, options)
           when 'event'
             alert_type = ['error', 'warning', 'info', 'success']
-            options[:alert_type] = if alert_type.include?(record['alert_type'].downcase)
+            options[:alert_type] = if !record['alert_type'].nil? and alert_type.include?(record['alert_type'].downcase)
                                      record['alert_type'].downcase
                                    else
                                      'info'
