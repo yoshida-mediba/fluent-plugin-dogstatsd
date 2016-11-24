@@ -6,7 +6,6 @@ module Fluent
     config_param :port, :integer, :default => nil
     config_param :use_tag_as_key, :bool, :default => false
     config_param :use_tag_as_key_if_missing, :bool, :default => false
-    config_param :use_tag_as_title, :bool, :default => false
     config_param :flat_tags, :bool, :default => false
     config_param :flat_tag, :bool, :default => false # obsolete
     config_param :metric_type, :string, :default => nil
@@ -60,11 +59,6 @@ module Fluent
           value = record.delete(@value_key || 'value')
 
           options = {}
-          title = if @use_tag_as_title
-                    tag
-                  else
-                    record.delete('title')
-                  end
           text  = record.delete(@text_key || 'text')
           type  = @metric_type || record.delete('type')
           sample_rate = @sample_rate || record.delete('sample_rate')
@@ -101,7 +95,7 @@ module Fluent
             s.set(key, value, options)
           when 'event'
             options[:alert_type] = record['alert_type']
-            s.event(title, text, options)
+            s.event(key, text, options)
           when nil
             log.warn "type is not provided (You can provide type via `metric_type` in config or `type` field in a record."
           else
